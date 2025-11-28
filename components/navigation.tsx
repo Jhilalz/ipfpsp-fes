@@ -57,14 +57,23 @@ export default function Navigation() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-1">
+            <a href="#about" className="px-3 py-2 text-sm font-medium hover:text-primary transition">
+              {t("nav.about")}
+            </a>
+            <a href="#campus" className="px-3 py-2 text-sm font-medium hover:text-primary transition">
+              {t("nav.campus")}
+            </a>
             <a href="#programs" className="px-3 py-2 text-sm font-medium hover:text-primary transition">
               {t("nav.programs")}
             </a>
             <a href="#certifications" className="px-3 py-2 text-sm font-medium hover:text-primary transition">
               {t("nav.certifications")}
             </a>
-            <a href="#about" className="px-3 py-2 text-sm font-medium hover:text-primary transition">
-              {t("nav.about")}
+            <a href="#registration" className="px-3 py-2 text-sm font-medium hover:text-primary transition">
+              {t("nav.registration")}
+            </a>
+            <a href="#faq" className="px-3 py-2 text-sm font-medium hover:text-primary transition">
+              {t("nav.faq")}
             </a>
             <a href="#contact" className="px-3 py-2 text-sm font-medium hover:text-primary transition">
               {t("nav.contact")}
@@ -144,14 +153,23 @@ export default function Navigation() {
         {/* Mobile Navigation */}
         {isOpen && (
           <div className="md:hidden pb-4 space-y-2">
+            <a href="#about" className="block px-3 py-2 text-sm font-medium hover:bg-muted rounded-lg">
+              {t("nav.about")}
+            </a>
+            <a href="#campus" className="block px-3 py-2 text-sm font-medium hover:bg-muted rounded-lg">
+              {t("nav.campus")}
+            </a>
             <a href="#programs" className="block px-3 py-2 text-sm font-medium hover:bg-muted rounded-lg">
               {t("nav.programs")}
             </a>
             <a href="#certifications" className="block px-3 py-2 text-sm font-medium hover:bg-muted rounded-lg">
               {t("nav.certifications")}
             </a>
-            <a href="#about" className="block px-3 py-2 text-sm font-medium hover:bg-muted rounded-lg">
-              {t("nav.about")}
+            <a href="#registration" className="block px-3 py-2 text-sm font-medium hover:bg-muted rounded-lg">
+              {t("nav.registration")}
+            </a>
+            <a href="#faq" className="block px-3 py-2 text-sm font-medium hover:bg-muted rounded-lg">
+              {t("nav.faq")}
             </a>
             <a href="#contact" className="block px-3 py-2 text-sm font-medium hover:bg-muted rounded-lg">
               {t("nav.contact")}

@@ -1,99 +1,101 @@
 "use client"
 
+import { useState } from "react"
 import { useLanguage } from "@/context/language-context"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { BookOpen, Heart, Globe, Users, Zap, Award, Briefcase, GraduationCap, Stethoscope, UtensilsCrossed, HeartPulse, Laptop, Languages, Building2, FlaskConical } from "lucide-react"
+import { BookOpen, Heart, Globe, Users, Zap, Award, Briefcase, GraduationCap, Stethoscope, UtensilsCrossed, HeartPulse, Laptop, Languages, Building2, FlaskConical, X } from "lucide-react"
 import Image from "next/image"
+import {
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerDescription,
+  DrawerClose,
+} from "@/components/ui/drawer"
 
 export default function ProgramsSection() {
-  const { t, dir } = useLanguage()
+  const { t, dir, language } = useLanguage()
+  const [selectedItem, setSelectedItem] = useState<{ type: 'diploma' | 'formation', id: number } | null>(null)
 
   const formations = [
     {
       id: 1,
       titleKey: "programs.delegue.title",
       descKey: "programs.delegue.desc",
+      fullDescKey: "programs.delegue.full",
       icon: Briefcase,
       color: "from-blue-600 to-blue-700",
+      imageKey: "programs.delegue.image",
     },
     {
       id: 2,
       titleKey: "programs.pedagogique.title",
       descKey: "programs.pedagogique.desc",
+      fullDescKey: "programs.pedagogique.full",
       icon: BookOpen,
       color: "from-green-600 to-green-700",
+      imageKey: "programs.pedagogique.image",
     },
     {
       id: 3,
       titleKey: "programs.paramedical.title",
       descKey: "programs.paramedical.desc",
+      fullDescKey: "programs.paramedical.full",
       icon: Stethoscope,
       color: "from-red-600 to-red-700",
+      imageKey: "programs.paramedical.image",
     },
     {
       id: 4,
       titleKey: "programs.koch.title",
       descKey: "programs.koch.desc",
+      fullDescKey: "programs.koch.full",
       icon: UtensilsCrossed,
       color: "from-orange-600 to-orange-700",
+      imageKey: "programs.koch.image",
     },
     {
       id: 5,
       titleKey: "programs.premiers_secours.title",
       descKey: "programs.premiers_secours.desc",
+      fullDescKey: "programs.premiers_secours.full",
       icon: HeartPulse,
       color: "from-red-500 to-pink-600",
+      imageKey: "programs.premiers_secours.image",
     },
     {
       id: 6,
       titleKey: "programs.bureautique.title",
       descKey: "programs.bureautique.desc",
+      fullDescKey: "programs.bureautique.full",
       icon: Laptop,
       color: "from-purple-600 to-purple-700",
+      imageKey: "programs.bureautique.image",
     },
   ]
 
   const diplomas = [
     {
       id: 1,
-      titleKey: "program1_name",
-      descKey: "programs.nursing.desc",
+      titleKey: "diplomas.infirmier_polyvalent.title",
+      descKey: "diplomas.infirmier_polyvalent.desc",
+      fullDescKey: "diplomas.infirmier_polyvalent.full",
       icon: Heart,
       color: "from-primary to-blue-600",
       duration: "program1_years",
+      imageKey: "diplomas.infirmier_polyvalent.image",
     },
     {
       id: 2,
-      titleKey: "program2_name",
-      descKey: "programs.paramedical.desc",
+      titleKey: "diplomas.aide_soignant.title",
+      descKey: "diplomas.aide_soignant.desc",
+      fullDescKey: "diplomas.aide_soignant.full",
       icon: Stethoscope,
       color: "from-secondary to-red-600",
       duration: "program2_years",
-    },
-    {
-      id: 3,
-      titleKey: "programs.physiotherapie.title",
-      descKey: "programs.physiotherapie.desc",
-      icon: Heart,
-      color: "from-teal-600 to-teal-700",
-      duration: "3 سنوات / 3 Ans / 3 Jahre",
-    },
-    {
-      id: 4,
-      titleKey: "programs.laboratoire.title",
-      descKey: "programs.laboratoire.desc",
-      icon: FlaskConical,
-      color: "from-indigo-600 to-indigo-700",
-      duration: "2 سنوات / 2 Ans / 2 Jahre",
-    },
-    {
-      id: 5,
-      titleKey: "programs.secretaire.title",
-      descKey: "programs.secretaire.desc",
-      icon: Briefcase,
-      color: "from-amber-600 to-amber-700",
-      duration: "1 سنة / 1 An / 1 Jahr",
+      imageKey: "diplomas.aide_soignant.image",
     },
   ]
 
@@ -162,13 +164,14 @@ export default function ProgramsSection() {
         {/* Diplomas Section */}
         <div className="mb-16">
           <h3 className="text-3xl font-bold mb-8 text-center">{t("diplomas.title")}</h3>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+          <div className="grid md:grid-cols-2 gap-6 mb-8">
             {diplomas.map((diploma) => {
               const IconComponent = diploma.icon
               return (
                 <Card
                   key={diploma.id}
-                  className="overflow-hidden border-none shadow-lg hover:shadow-2xl transition-all hover:-translate-y-1"
+                  className="overflow-hidden border-none shadow-lg hover:shadow-2xl transition-all hover:-translate-y-1 cursor-pointer"
+                  onClick={() => setSelectedItem({ type: 'diploma', id: diploma.id })}
                 >
                   <div className={`h-24 bg-gradient-to-r ${diploma.color} opacity-90 relative overflow-hidden`}>
                     <div className="absolute inset-0 moroccan-pattern opacity-20" />
@@ -199,7 +202,8 @@ export default function ProgramsSection() {
               return (
                 <Card
                   key={formation.id}
-                  className="overflow-hidden border-none shadow-lg hover:shadow-2xl transition-all hover:-translate-y-1"
+                  className="overflow-hidden border-none shadow-lg hover:shadow-2xl transition-all hover:-translate-y-1 cursor-pointer"
+                  onClick={() => setSelectedItem({ type: 'formation', id: formation.id })}
                 >
                   <div className={`h-24 bg-gradient-to-r ${formation.color} opacity-90 relative overflow-hidden`}>
                     <div className="absolute inset-0 moroccan-pattern opacity-20" />
@@ -322,6 +326,73 @@ export default function ProgramsSection() {
           </div>
         </div>
       </div>
+
+      {/* Drawer for Diploma/Formation Details */}
+      <Drawer 
+        open={selectedItem !== null} 
+        onOpenChange={(open) => !open && setSelectedItem(null)}
+        direction={dir === "rtl" ? "left" : "right"}
+        dismissible={true}
+      >
+        <DrawerContent className={`${dir === "rtl" ? "left-0" : "right-0"} !w-[60%] !min-w-[50%] !max-w-[80%] sm:!max-w-[80%]`}>
+          {selectedItem && (() => {
+            const item = selectedItem.type === 'diploma' 
+              ? diplomas.find(d => d.id === selectedItem.id)
+              : formations.find(f => f.id === selectedItem.id)
+            
+            if (!item) return null
+            
+            const fullText = selectedItem.type === 'diploma'
+              ? t((item as typeof diplomas[0]).fullDescKey)
+              : t((item as typeof formations[0]).fullDescKey)
+            
+            const imagePath = selectedItem.type === 'diploma'
+              ? t((item as typeof diplomas[0]).imageKey)
+              : t((item as typeof formations[0]).imageKey)
+            
+            // Split the full text by language markers
+            const parts = fullText.split(/\n\n/)
+            const germanPart = parts.find(p => p.startsWith("Deutsch:"))
+            const arabicPart = parts.find(p => p.startsWith("العربية:"))
+            const frenchPart = parts.find(p => p.startsWith("Français:"))
+            
+            const currentLangPart = language === "de" ? germanPart 
+              : language === "ar" ? arabicPart 
+              : frenchPart
+            
+            const displayText = currentLangPart 
+              ? currentLangPart.replace(/^(Deutsch:|العربية:|Français:)\s*/, "")
+              : fullText
+
+            return (
+              <>
+                <DrawerHeader>
+                  <DrawerTitle className="text-2xl font-bold">{t(item.titleKey)}</DrawerTitle>
+                  <DrawerClose className="absolute top-4 right-4">
+                    <X className="h-4 w-4" />
+                  </DrawerClose>
+                </DrawerHeader>
+                <div className="p-6 overflow-y-auto max-h-[70vh]">
+                  <div className="relative w-full h-96 mb-6 rounded-lg overflow-hidden shadow-lg">
+                    <Image
+                      src={imagePath || "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=1200&h=600&fit=crop"}
+                      alt={t(item.titleKey)}
+                      fill
+                      className="object-cover"
+                      unoptimized
+                    />
+                  </div>
+                  <div className="prose prose-sm max-w-none">
+                    <p className="whitespace-pre-line text-muted-foreground leading-relaxed">
+                      {displayText}
+                    </p>
+                  </div>
+                </div>
+              </>
+            )
+          })()}
+        </DrawerContent>
+      </Drawer>
     </section>
   )
 }
